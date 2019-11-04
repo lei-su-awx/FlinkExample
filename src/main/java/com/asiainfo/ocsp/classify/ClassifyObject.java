@@ -50,10 +50,6 @@ public class ClassifyObject {
 
     @Override
     public String toString() {
-        return "ClassifyObject{" +
-                "type='" + type + '\'' +
-                ", volume=" + volume +
-                ", id='" + id + '\'' +
-                '}';
+        return "type=" + type + ", volume=" + volume + ", id=" + id;
     }
 }

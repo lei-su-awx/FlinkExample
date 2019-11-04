@@ -50,10 +50,11 @@ public class CepObject {
     public CepObject() {
     }
 
-    public CepObject(String id, String type, double volume) {
+    public CepObject(String id, String type, double volume, long timestamp) {
         this.id = id;
         this.type = type;
         this.volume = volume;
+        this.timestamp = timestamp;
     }
 
     @Override

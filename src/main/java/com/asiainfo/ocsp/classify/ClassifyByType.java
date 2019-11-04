@@ -22,7 +22,7 @@ public class ClassifyByType {
 
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.setParallelism(4);
+        env.setParallelism(1);
 
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "host-10-1-236-139:6667");
@@ -59,11 +59,11 @@ public class ClassifyByType {
             }
         });
 
-        outputStream.getSideOutput(type1).writeAsText("./output/type1.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type2).writeAsText("./output/type2.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type3).writeAsText("./output/type3.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type4).writeAsText("./output/type4.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.writeAsText("./output/type.txt", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type1).writeAsText("./output/type1", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type2).writeAsText("./output/type2", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type3).writeAsText("./output/type3", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type4).writeAsText("./output/type4", FileSystem.WriteMode.OVERWRITE);
+        outputStream.writeAsText("./output/type", FileSystem.WriteMode.OVERWRITE);
 
         env.execute("Classify info by type");
     }

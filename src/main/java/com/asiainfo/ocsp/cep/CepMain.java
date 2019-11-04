@@ -33,7 +33,7 @@ public class CepMain {
         DataStream<String> inputStream = env.addSource(new FlinkKafkaConsumer010<>("input", new SimpleStringSchema(), properties));
         DataStream<CepObject> cepObjectStream = inputStream.map(value -> {
             String[] values = value.split(",");
-            return new CepObject(values[0], values[1], Double.valueOf(values[2]));
+            return new CepObject(values[0], values[1], Double.valueOf(values[2]), Long.valueOf(values[3]));
         }).assignTimestampsAndWatermarks(new BoundedOutOfOrdernessGenerator());
 
         Pattern<CepObject, ?> pattern = Pattern.<CepObject>begin("start").where(new SimpleCondition<CepObject>() {
