@@ -22,7 +22,7 @@ public class ClassifyByType {
 
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.setParallelism(1);
+        env.setParallelism(4);
 
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "host-10-1-236-139:6667");
@@ -59,11 +59,13 @@ public class ClassifyByType {
             }
         });
 
-        outputStream.getSideOutput(type1).writeAsText("./output/type1", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type2).writeAsText("./output/type2", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type3).writeAsText("./output/type3", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type4).writeAsText("./output/type4", FileSystem.WriteMode.OVERWRITE);
-        outputStream.writeAsText("./output/type", FileSystem.WriteMode.OVERWRITE);
+        // 当输出的并行度大于1时，最后指定的是文件夹的名字，在最后的文件及里面，会有1到并行度个文件夹。
+        // 并行度等于1时，最后指定的是文件的名字
+        outputStream.getSideOutput(type1).writeAsText("./output/type1", FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+        outputStream.getSideOutput(type2).writeAsText("./output/type2", FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+        outputStream.getSideOutput(type3).writeAsText("./output/type3", FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+        outputStream.getSideOutput(type4).writeAsText("./output/type4", FileSystem.WriteMode.OVERWRITE).setParallelism(1);
+        outputStream.writeAsText("./output/type", FileSystem.WriteMode.OVERWRITE).setParallelism(2);
 
         env.execute("Classify info by type");
     }
