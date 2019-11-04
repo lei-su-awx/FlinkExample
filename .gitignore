@@ -27,3 +27,9 @@ hs_err_pid*
 
 # test files
 **/test/**
+
+# target files
+target/**
+
+# output files
+output/**

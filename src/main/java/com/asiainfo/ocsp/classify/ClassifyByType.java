@@ -34,10 +34,10 @@ public class ClassifyByType {
             return new ClassifyObject(values[0], values[1], Double.valueOf(values[2]));
         });
 
-        OutputTag<String> type1 = new OutputTag<>("type1");
-        OutputTag<String> type2 = new OutputTag<>("type2");
-        OutputTag<String> type3 = new OutputTag<>("type3");
-        OutputTag<String> type4 = new OutputTag<>("type4");
+        OutputTag<String> type1 = new OutputTag<String>("type1"){};
+        OutputTag<String> type2 = new OutputTag<String>("type2"){};
+        OutputTag<String> type3 = new OutputTag<String>("type3"){};
+        OutputTag<String> type4 = new OutputTag<String>("type4"){};
 
         SingleOutputStreamOperator<String> outputStream = classifyStream.process(new ProcessFunction<ClassifyObject, String>() {
             @Override
@@ -59,11 +59,11 @@ public class ClassifyByType {
             }
         });
 
-        outputStream.getSideOutput(type1).writeAsText("./type1.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type2).writeAsText("./type2.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type3).writeAsText("./type3.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.getSideOutput(type4).writeAsText("./type4.txt", FileSystem.WriteMode.OVERWRITE);
-        outputStream.writeAsText("./type.txt", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type1).writeAsText("./output/type1.txt", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type2).writeAsText("./output/type2.txt", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type3).writeAsText("./output/type3.txt", FileSystem.WriteMode.OVERWRITE);
+        outputStream.getSideOutput(type4).writeAsText("./output/type4.txt", FileSystem.WriteMode.OVERWRITE);
+        outputStream.writeAsText("./output/type.txt", FileSystem.WriteMode.OVERWRITE);
 
         env.execute("Classify info by type");
     }
