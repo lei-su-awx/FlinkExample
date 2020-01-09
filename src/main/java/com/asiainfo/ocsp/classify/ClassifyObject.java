@@ -1,12 +1,9 @@
 package com.asiainfo.ocsp.classify;
 
-import java.util.HashMap;
-import java.util.Objects;
-
 /**
  * @author sulei
  * @date 2019/10/31
- * @e-mail sulei5@asiainfo.com
+ * @e-mail 776531804@qq.com
  */
 
 public class ClassifyObject {

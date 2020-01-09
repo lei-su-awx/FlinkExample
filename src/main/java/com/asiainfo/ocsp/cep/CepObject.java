@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * @author sulei
  * @date 2019/10/31
- * @e-mail sulei5@asiainfo.com
+ * @e-mail 776531804@qq.com
  */
 
 public class CepObject {

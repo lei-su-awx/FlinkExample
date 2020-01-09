@@ -15,7 +15,7 @@ import java.util.Properties;
 /**
  * @author sulei
  * @date 2019/10/31
- * @e-mail sulei5@asiainfo.com
+ * @e-mail 776531804@qq.com
  */
 
 public class ClassifyByType {
@@ -25,7 +25,7 @@ public class ClassifyByType {
         env.setParallelism(4);
 
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", "host-10-1-236-139:6667");
+        properties.setProperty("bootstrap.servers", "xxxx:6667");
         properties.setProperty("group.id", "classify");
         DataStream<String> inputStream = env.addSource(new FlinkKafkaConsumer010<>("input", new SimpleStringSchema(), properties));
 
@@ -34,10 +34,14 @@ public class ClassifyByType {
             return new ClassifyObject(values[0], values[1], Double.valueOf(values[2]));
         });
 
-        OutputTag<String> type1 = new OutputTag<String>("type1"){};
-        OutputTag<String> type2 = new OutputTag<String>("type2"){};
-        OutputTag<String> type3 = new OutputTag<String>("type3"){};
-        OutputTag<String> type4 = new OutputTag<String>("type4"){};
+        OutputTag<String> type1 = new OutputTag<String>("type1") {
+        };
+        OutputTag<String> type2 = new OutputTag<String>("type2") {
+        };
+        OutputTag<String> type3 = new OutputTag<String>("type3") {
+        };
+        OutputTag<String> type4 = new OutputTag<String>("type4") {
+        };
 
         SingleOutputStreamOperator<String> outputStream = classifyStream.process(new ProcessFunction<ClassifyObject, String>() {
             @Override

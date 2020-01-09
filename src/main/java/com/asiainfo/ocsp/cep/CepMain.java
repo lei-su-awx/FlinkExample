@@ -17,7 +17,7 @@ import java.util.Properties;
 /**
  * @author sulei
  * @date 2019/9/17
- * @e-mail sulei5@asiainfo.com
+ * @e-mail 776531804@qq.com
  */
 
 public class CepMain {
@@ -28,7 +28,7 @@ public class CepMain {
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", "host-10-1-236-139:6667");
+        properties.setProperty("bootstrap.servers", "xxxx:6667");
         properties.setProperty("group.id", "cep");
         DataStream<String> inputStream = env.addSource(new FlinkKafkaConsumer010<>("input", new SimpleStringSchema(), properties));
         DataStream<CepObject> cepObjectStream = inputStream.map(value -> {
