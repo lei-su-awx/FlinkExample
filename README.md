@@ -1,2 +1,2 @@
 # FlinkExample
-FLink demo for normal test
+Flink demo for normal test
