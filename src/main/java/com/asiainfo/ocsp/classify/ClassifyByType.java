@@ -6,6 +6,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.ProcessFunction;
+import org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
 import org.apache.flink.util.Collector;
 import org.apache.flink.util.OutputTag;
@@ -31,7 +32,7 @@ public class ClassifyByType {
 
         DataStream<ClassifyObject> classifyStream = inputStream.map(value -> {
             String[] values = value.split(",");
-            return new ClassifyObject(values[0], values[1], Double.valueOf(values[2]));
+            return new ClassifyObject(values[0], values[1], Double.parseDouble(values[2]));
         });
 
         OutputTag<String> type1 = new OutputTag<String>("type1") {
@@ -54,8 +55,11 @@ public class ClassifyByType {
                         ctx.output(type2, value.toString());
                         break;
                     case "type3":
-                        if (value.getVolume() >= 50) ctx.output(type3, value.toString());
-                        else ctx.output(type4, value.toString());
+                        if (value.getVolume() >= 50) {
+                            ctx.output(type3, value.toString());
+                        } else {
+                            ctx.output(type4, value.toString());
+                        }
                         break;
                     default:
                         out.collect(value.toString());
