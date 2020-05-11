@@ -151,13 +151,11 @@ public class StateTest {
         String[] stayTimeRowFieldNames = new String[rowTypeInfo.getArity() + 2];
         TypeInformation<?>[] stayTimeRowFieldTypes = new TypeInformation[rowTypeInfo.getArity() + 2];
         int i = 0;
-//        StringBuilder fieldNames = new StringBuilder();
-//        for (String fieldName : rowTypeInfo.getFieldNames()) {
-//            stayTimeRowFieldNames[i] = fieldName;
-//            stayTimeRowFieldTypes[i] = rowTypeInfo.getTypeAt(i);
-//            fieldNames.append(fieldName).append(", ");
-//            i++;
-//        }
+        for (String fieldName : rowTypeInfo.getFieldNames()) {
+            stayTimeRowFieldNames[i] = fieldName;
+            stayTimeRowFieldTypes[i] = rowTypeInfo.getTypeAt(i);
+            i++;
+        }
 
         final int areaTimeToSplitIndex = i;
         final int areaSplitIndex = rowTypeInfo.getFieldIndex(areaKey);
@@ -178,8 +176,6 @@ public class StateTest {
         stayTimeRowFieldTypes[i] = Types.STRING();
         stayTimeRowFieldNames[i + 1] = "stayArea";
         stayTimeRowFieldTypes[i + 1] = Types.STRING();
-//        fieldNames.append("stayTime, ");
-//        fieldNames.append("stayArea");
         RowTypeInfo newRowTypeInfo = new RowTypeInfo(stayTimeRowFieldTypes, stayTimeRowFieldNames);
         stayTimeSplit.getTransformation().setOutputType(newRowTypeInfo);
 
