@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.asiainfo.flink</groupId>
+    <groupId>com.sulei.test</groupId>
     <artifactId>FlinkExample</artifactId>
     <version>1.0</version>
     <properties>
@@ -140,12 +140,7 @@
                 </executions>
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
-                    <args>
-                        <!--<arg>-target:jvm-1.5</arg>-->
-                    </args>
                     <excludes>
-<!--                        <exclude>**/cyq/**</exclude>-->
-<!--                        <exclude>**/ocsp/*.*</exclude>-->
                     </excludes>
                 </configuration>
             </plugin>
