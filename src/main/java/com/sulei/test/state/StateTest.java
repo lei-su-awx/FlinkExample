@@ -65,7 +65,7 @@ public class StateTest {
         Table midTable = input.select("user_id, area, timestamp");
 
         RowTypeInfo rowTypeInfo = new RowTypeInfo(midTable.getSchema().getFieldTypes(), midTable.getSchema().getFieldNames());
-        String[] primaryKeys = "s_string".split(",");
+        String[] primaryKeys = "user_id".split(",");
         String areaKey = "area";
         String regionDelim = "|";
         String timeKey = "timestamp";
@@ -179,12 +179,12 @@ public class StateTest {
 
         Table stayTimeTable = tableEnv.fromDataStream(stayTimeSplit);
 
-        Table newTable = stayTimeTable.select("s_string, s_int, s_long, stayTime, stayArea");
+        Table newTable = stayTimeTable.select("user_id, area, timestamp, stayTime, stayArea");
 
         DataStream<Row> ds1 = tableEnv.toAppendStream(newTable, newRowTypeInfo);
         ds1.print();
 
-        env.execute("asd");
+        env.execute("");
     }
 
     private static Row createRowWithStayTime(Row row, String stayTime) {
