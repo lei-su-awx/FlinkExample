@@ -117,17 +117,36 @@ public class UdfFromJar {
         return properties;
     }
 
-    public static void registerUdf(StreamTableEnvironment tableEnv) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        String udfString = "com.asiainfo.flink.udf.shannxiCrypt.Encrypt;com.asiainfo.flink.udf.shannxiCrypt.Decrypt";
+    public static void registerUdf(StreamTableEnvironment tableEnv) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        String udfString = "com.sulei.test.udf.HttpUdf?http://10.1.236.65:9527/";
 
         if (!udfString.isEmpty()) {
             String[] udfs = udfString.split(";");
             for (String udf : udfs) {
-                if (!udf.trim().isEmpty()) {
-                    Class<?> udfClazz = Class.forName(udf);
-                    ScalarFunction function = (ScalarFunction) getUdfClassByName(udfClazz);
-                    String udfName = getUdfName(udfClazz);
-                    tableEnv.registerFunction(udfName, function);
+                udf = udf.trim();
+                if (!udf.isEmpty()) {
+                    if (udf.contains("?")) {
+                        // 调用有参构造函数
+                        String[] classNameAndParams = udf.split("\\?");
+                        String[] params = classNameAndParams[1].split("&");
+
+                        Class<?>[] paramTypes = new Class<?>[params.length];
+                        for (int i = 0; i < params.length; i++) {
+                            paramTypes[i] = String.class;
+                        }
+
+                        Class<?> udfClazz = Class.forName(classNameAndParams[0]);
+                        Constructor<?> constructor = udfClazz.getConstructor(paramTypes);
+                        ScalarFunction function = (ScalarFunction) constructor.newInstance(params);
+                        String udfName = getUdfName(udfClazz);
+                        tableEnv.registerFunction(udfName, function);
+                    } else {
+                        // 调用无参构造函数
+                        Class<?> udfClazz = Class.forName(udf);
+                        ScalarFunction function = (ScalarFunction) getUdfClassByName(udfClazz);
+                        String udfName = getUdfName(udfClazz);
+                        tableEnv.registerFunction(udfName, function);
+                    }
                 }
             }
         }
