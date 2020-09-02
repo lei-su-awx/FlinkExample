@@ -1,7 +1,6 @@
 package com.sulei.test.tablefactories;
 
 import org.apache.flink.api.common.typeinfo.TypeInformation;
-import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -9,7 +8,7 @@ import org.apache.flink.streaming.connectors.kafka.KafkaTableSourceSinkFactory;
 import org.apache.flink.streaming.connectors.kafka.KafkaTableSourceSinkFactoryBase;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.java.StreamTableEnvironment;
+import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.table.sources.StreamTableSource;
 import org.apache.flink.types.Row;
 

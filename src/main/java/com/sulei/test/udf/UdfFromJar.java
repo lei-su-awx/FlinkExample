@@ -1,22 +1,22 @@
 package com.sulei.test.udf;
 
 import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.KafkaTableSourceSinkFactory;
-import org.apache.flink.streaming.connectors.kafka.KafkaTableSourceSinkFactoryBase;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.table.functions.ScalarFunction;
-import org.apache.flink.table.sinks.StreamTableSink;
-import org.apache.flink.table.sources.StreamTableSource;
 import org.apache.flink.types.Row;
 
 import javax.inject.Named;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.apache.flink.table.api.Expressions.$;
 
 /**
  * @author sulei
