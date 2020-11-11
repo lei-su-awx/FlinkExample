@@ -32,3 +32,6 @@ target/**
 
 # output files
 output/**
+
+# iml file
+FlinkExample.iml
